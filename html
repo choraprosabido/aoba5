@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niffty Bot — Beta</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #001a33, #000a1a 80%);
+      color: #e0f2ff;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* --- ANIMAÇÕES GERAIS --- */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px #0099ff; }
+      50% { text-shadow: 0 0 25px #33ccff, 0 0 45px #00aaff; }
+      100% { text-shadow: 0 0 10px #0099ff; }
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 0.7; transform: scale(1); }
+    }
+
+    @keyframes move {
+      from { transform: translateY(0) rotate(0deg); }
+      to { transform: translateY(-120vh) rotate(360deg); }
+    }
+
+    /* --- CABEÇALHO --- */
+    header {
+      text-align: center;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #66ccff;
+      text-shadow: 0 0 25px #00aaff;
+      letter-spacing: 2px;
+      animation: glow 3s infinite ease-in-out;
+    }
+
+    .beta {
+      display: inline-block;
+      background: rgba(0, 153, 255, 0.2);
+      color: #66ccff;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      text-transform: uppercase;
+      border: 1px solid rgba(0, 153, 255, 0.5);
+      animation: pulse 2s infinite;
+    }
+
+    /* --- DESCRIÇÃO --- */
+    p.description {
+      color: #aad8ff;
+      max-width: 650px;
+      margin: 25px auto 30px;
+      line-height: 1.8;
+      font-size: 1.15rem;
+      text-align: center;
+      animation: fadeIn 1.6s ease forwards;
+      opacity: 0;
+      animation-delay: 0.5s;
+    }
+
+    /* --- BOTÕES --- */
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+      animation: fadeIn 1.8s ease forwards;
+      opacity: 0;
+      animation-delay: 0.9s;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      background: linear-gradient(135deg, #0077ff, #0044cc);
+      padding: 15px 38px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    a:hover {
+      background: linear-gradient(135deg, #0099ff, #0066ff);
+      box-shadow: 0 0 35px rgba(0, 191, 255, 0.8);
+      transform: translateY(-4px);
+    }
+
+    /* --- STATUS BOX --- */
+    .stats {
+      margin-top: 60px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 100, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px 40px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0, 100, 255, 0.3);
+      animation: fadeIn 2s ease forwards;
+      opacity: 0;
+      animation-delay: 1.4s;
+    }
+
+    .stats h3 {
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #66b2ff;
+    }
+
+    .stats p {
+      color: #99cfff;
+      font-size: 1rem;
+      margin: 6px 0;
+    }
+
+    /* --- FUNDO COM PARTÍCULAS --- */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particles span {
+      position: absolute;
+      display: block;
+      background: #0099ff;
+      border-radius: 50%;
+      animation: move linear infinite;
+    }
+
+    /* --- RODAPÉ --- */
+    footer {
+      position: fixed;
+      bottom: 15px;
+      font-size: 0.9rem;
+      opacity: 0.6;
+      text-align: center;
+      animation: fadeIn 2.3s ease forwards;
+      opacity: 0;
+      animation-delay: 2s;
+    }
+
+    footer span {
+      color: #66ccff;
+    }
+
+    /* --- EFEITO DE ENTRADA EM CADEIA --- */
+    [style*="animation-delay"] {
+      animation-fill-mode: forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <header>
+    <h1>Niffty Bot</h1>
+    <div class="beta">Versão Beta</div>
+  </header>
+
+  <p class="description">
+    O <strong>Niffty</strong> é um bot em fase <strong>beta</strong>, atualmente disponível em apenas <strong>1 servidor</strong> com <strong>3 usuários</strong>.  
+    Ele está sendo desenvolvido ativamente e em breve receberá <strong>diversas atualizações</strong>, incluindo novos comandos, sistemas e melhorias visuais.
+  </p>
+
+  <div class="buttons">
+    <a href="https://discord.gg/vYzVzpTVWz" target="_blank">🌐 Servidor Oficial</a>
+    <a href="https://discord.com/oauth2/authorize?client_id=1424795631964131429&permissions=8&integration_type=0&scope=bot" target="_blank">➕ Adicionar Bot</a>
+  </div>
+
+  <div class="stats">
+    <h3>Status Atual</h3>
+    <p>🟢 Online em 1 servidor</p>
+    <p>👥 3 usuários conectados</p>
+    <p>🚀 Desenvolvimento ativo — atualizações em breve!</p>
+  </div>
+
+  <footer>
+    © 2025 <span>Niffty Bot</span> • Todos os direitos reservados
+  </footer>
+
+  <script>
+    // Gera partículas flutuantes azuis no fundo
+    const container = document.getElementById("particles");
+    const numParticles = 60;
+
+    for (let i = 0; i < numParticles; i++) {
+      const particle = document.createElement("span");
+      const size = Math.random() * 4 + 2;
+      particle.style.width = size + "px";
+      particle.style.height = size + "px";
+      particle.style.left = Math.random() * 100 + "vw";
+      particle.style.top = Math.random() * 100 + "vh";
+      particle.style.animationDuration = 8 + Math.random() * 10 + "s";
+      particle.style.animationDelay = Math.random() * 5 + "s";
+      particle.style.opacity = 0.3 + Math.random() * 0.5;
+      container.appendChild(particle);
+    }
+  </script>
+</body>
+</html>
